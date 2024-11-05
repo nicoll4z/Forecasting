@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package previsao;
+
+service PrevisaoService {
+    rpc GetPrevisao5d(PrevisaoRequest) returns (PrevisaoResponse);
+    rpc GetPrevisao1d(PrevisaoRequest) returns (PrevisaoResponse);
+    rpc GetPrevisao1h(PrevisaoRequest) returns (PrevisaoResponse);
+}
+
+message PrevisaoRequest {
+    string city_name = 1;
+}
+
+message DailyForecast {
+    string date = 1;
+    string weather_text = 2;
+    float temperature = 3;
+    float real_feel = 4; // Sensação térmica
+    float humidity = 5; // Umidade
+}
+
+message PrevisaoResponse {
+    repeated DailyForecast forecasts = 1; // Lista de previsões diárias
+}

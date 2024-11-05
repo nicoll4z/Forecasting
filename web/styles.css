@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    background-color: #f3f3f3;
+}
+
+#container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center; /* Ocupa toda a altura da tela */
+    padding: 20px;
+}
+
+
+input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button {
+    width: 100px;
+    padding: 2%;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#weather-result {
+    display: flex;
+    flex-direction: column; /* Organiza os itens em linha */
+    gap: 20px; /* Adiciona espaço entre os elementos */
+    align-items: center; /* Alinha verticalmente os itens ao centro */
+}
+
+#forecast-data {
+    text-align: center;
+}
+
+#search-form {
+    display: inline;   
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
