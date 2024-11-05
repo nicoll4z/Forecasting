@@ -3,11 +3,11 @@ from concurrent import futures
 import requests
 import previsao_pb2 as previsao_pb2
 import previsao_pb2_grpc
-
 from datetime import datetime
+from dateutil import parser
 
 
-API_KEY = 'Hs32TH7INNei4Ksnb0U3MQjdWlAqzRG8'
+API_KEY = 'gazgykgkYkIjHHeuuDFrhIkmlGDLtmtu'
 BASE_URL = 'http://dataservice.accuweather.com/'
 
 class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
@@ -38,17 +38,22 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
         forecasts = []
 
         for day in forecast_data['DailyForecasts']:
-            date_str = day['Date'][:10]  # Data no formato ISO (YYYY-MM-DDTHH:MM:SSZ)
+            date_str = day['Date'] # Data no formato ISO (YYYY-MM-DDTHH:MM:SSZ)
+            date_obj = parser.parse(date_str)
+            date_frmtd = date_obj.strftime("%H:%M - %d/%m/%Y")
             weather_text = day['Day']['IconPhrase']
             temperature = day['Temperature']['Maximum']['Value']
             real_feel = day['RealFeelTemperature']['Maximum']['Value']  # Sensação térmica
             humidity = day['Day']['RainProbability']  # Umidade relativa
+            
+            temperature = str(temperature)[:2]
+            real_feel= str(real_feel)[:2]
 
             forecasts.append(previsao_pb2.DailyForecast(
-                date=date_str,
+                date=date_frmtd,
                 weather_text=weather_text,
-                temperature=round(temperature, 2),
-                real_feel=round(real_feel, 2),
+                temperature=float(temperature),
+                real_feel=float(real_feel),
                 humidity=humidity
             ))
 
@@ -87,17 +92,22 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
         forecasts = []
 
         for day in forecast_data['DailyForecasts']:
-            date_str = day['Date'][:10]  # Data no formato ISO (YYYY-MM-DDTHH:MM:SSZ)
+            date_str = day['Date'] # Data no formato ISO (YYYY-MM-DDTHH:MM:SSZ)
+            date_obj = parser.parse(date_str)
+            date_frmtd = date_obj.strftime("%H:%M - %d/%m/%Y")
             weather_text = day['Day']['IconPhrase']
             temperature = day['Temperature']['Maximum']['Value']
             real_feel = day['RealFeelTemperature']['Maximum']['Value']  # Sensação térmica
             humidity = day['Day']['RainProbability']  # Umidade relativa
 
+            temperature = str(temperature)[:2]
+            real_feel= str(real_feel)[:2]
+
             forecasts.append(previsao_pb2.DailyForecast(
-                date=date_str,
+                date=date_frmtd,
                 weather_text=weather_text,
-                temperature=round(temperature, 2),
-                real_feel=round(real_feel, 2),
+                temperature=float(temperature),
+                real_feel=float(real_feel),
                 humidity=humidity
             ))
 
@@ -135,17 +145,22 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
         forecasts = []
 
         for hour in forecast_data:
-            date_str = hour['DateTime'][:10]  # Data no formato ISO (YYYY-MM-DDTHH:MM:SSZ)
+            date_str = hour['DateTime'] # Data no formato ISO (YYYY-MM-DDTHH:MM:SSZ)
+            date_obj = parser.parse(date_str)
+            date_frmtd = date_obj.strftime("%H:%M - %d/%m/%Y")# Data no formato ISO (YYYY-MM-DDTHH:MM:SSZ)
             weather_text = hour['IconPhrase']
             temperature = hour['Temperature']['Value']
             real_feel = hour['RealFeelTemperature']['Value']  # Sensação térmica
             humidity = hour['RelativeHumidity']  # Usando um valor padrão se não existir
 
+            temperature = str(temperature)[:2]
+            real_feel= str(real_feel)[:2]
+
             forecasts.append(previsao_pb2.DailyForecast(
-                date=date_str,
+                date=date_frmtd,
                 weather_text=weather_text,
-                temperature=round(temperature, 2),
-                real_feel=round(real_feel, 2),
+                temperature=float(temperature),
+                real_feel=float(real_feel),
                 humidity=humidity
             ))
 

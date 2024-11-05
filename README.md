@@ -28,8 +28,8 @@ Este projeto é uma aplicação distribuída para consultar previsões meteorol�
 
 1. Clone o repositório:
     ```bash
-    git clone <url-do-repositorio>
-    cd nome-do-repositorio
+    git clone <https://github.com/nicoll4z/Forecasting>
+    cd Forecasting
     ```
 
 2. Instale as dependências:
