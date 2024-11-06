@@ -24,6 +24,8 @@ def get_previsao5d():
             response = stub.GetPrevisao5d(request_data)
             forecasts = [
                 {
+                    "country": forecast.country,
+                    "adArea": forecast.adArea,
                     "date": forecast.date,
                     "weather_text": forecast.weather_text,
                     "temperature": forecast.temperature,
@@ -52,6 +54,8 @@ def get_previsao1d():
             response = stub.GetPrevisao1d(request_data)
             forecasts = [
                 {
+                    "country": forecast.country,
+                    "adArea": forecast.adArea,
                     "date": forecast.date,
                     "weather_text": forecast.weather_text,
                     "temperature": forecast.temperature,
@@ -80,6 +84,8 @@ def get_previsao12h():
             response = stub.GetPrevisao1h(request_data)
             forecasts = [
                 {
+                    "country": forecast.country,
+                    "adArea": forecast.adArea,
                     "date": forecast.date,
                     "weather_text": forecast.weather_text,
                     "temperature": forecast.temperature,

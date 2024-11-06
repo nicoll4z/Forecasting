@@ -97,9 +97,11 @@
             forecasts.forEach(forecast => {
                 const forecastElement = document.createElement("div");
                 forecastElement.innerHTML = `
+                    <p>País: ${forecast.country}</p>
+                    <p>Estado: ${forecast.adArea}</p>
                     <p>Data: ${forecast.date}</p>
                     <p>Condições: ${forecast.weather_text}</p>
-                    <p>Temperatura: ${forecast.temperature}°C</p>
+                    <p>Temperatura máxima: ${forecast.temperature}°C</p>
                     <p>Sensação Térmica: ${forecast.real_feel}°C</p>
                     <p>Umidade: ${forecast.humidity}%</p>
                     <hr>
