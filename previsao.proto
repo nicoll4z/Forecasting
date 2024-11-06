@@ -13,11 +13,13 @@ message PrevisaoRequest {
 }
 
 message DailyForecast {
-    string date = 1;
-    string weather_text = 2;
-    float temperature = 3;
-    float real_feel = 4; // Sensação térmica
-    float humidity = 5; // Umidade
+    string country = 1;
+    string adArea = 2;
+    string date = 3;
+    string weather_text = 4;
+    float temperature = 5;
+    float real_feel = 6; // Sensação térmica
+    float humidity = 7; // Umidade
 }
 
 message PrevisaoResponse {

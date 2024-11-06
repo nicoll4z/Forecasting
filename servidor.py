@@ -7,7 +7,7 @@ from datetime import datetime
 from dateutil import parser
 
 
-API_KEY = 'gazgykgkYkIjHHeuuDFrhIkmlGDLtmtu'
+API_KEY = 'O5ZAvp8m27C3s2dJd1cpSO4pAUsPeeNL'
 BASE_URL = 'http://dataservice.accuweather.com/'
 
 class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
@@ -29,7 +29,10 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             return previsao_pb2.PrevisaoResponse()
         
+
         location_key = location_data[0]['Key']
+        country = location_data[0]['Country']['LocalizedName']
+        adArea = location_data[0]['AdministrativeArea']['LocalizedName']
         
         forecast_url = f"{BASE_URL}forecasts/v1/daily/5day/{location_key}?apikey={API_KEY}&language=pt-BR&details=true&metric=true"
         forecast_response = requests.get(forecast_url)
@@ -50,6 +53,8 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
             real_feel= str(real_feel)[:2]
 
             forecasts.append(previsao_pb2.DailyForecast(
+                country = country,
+                adArea = adArea,
                 date=date_frmtd,
                 weather_text=weather_text,
                 temperature=float(temperature),
@@ -78,7 +83,8 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
             return previsao_pb2.PrevisaoResponse()
         
         location_key = location_data[0]['Key']
-
+        country = location_data[0]['Country']['LocalizedName']
+        adArea = location_data[0]['AdministrativeArea']['LocalizedName']
       
         forecast_url = f"{BASE_URL}forecasts/v1/daily/1day/{location_key}?apikey={API_KEY}&language=pt-BR&details=true&metric=true"
         forecast_response = requests.get(forecast_url)
@@ -104,6 +110,8 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
             real_feel= str(real_feel)[:2]
 
             forecasts.append(previsao_pb2.DailyForecast(
+                country=country,
+                adArea=adArea,
                 date=date_frmtd,
                 weather_text=weather_text,
                 temperature=float(temperature),
@@ -132,6 +140,8 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
             return previsao_pb2.PrevisaoResponse()
         
         location_key = location_data[0]['Key']
+        country = location_data[0]['Country']['LocalizedName']
+        adArea = location_data[0]['AdministrativeArea']['LocalizedName']
         
         forecast_url = f"{BASE_URL}forecasts/v1/hourly/1hour/{location_key}?apikey={API_KEY}&language=pt-BR&details=true&metric=true"
         forecast_response = requests.get(forecast_url)
@@ -157,6 +167,8 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
             real_feel= str(real_feel)[:2]
 
             forecasts.append(previsao_pb2.DailyForecast(
+                country=country,
+                adArea=adArea,
                 date=date_frmtd,
                 weather_text=weather_text,
                 temperature=float(temperature),
@@ -167,7 +179,7 @@ class PrevisaoService(previsao_pb2_grpc.PrevisaoServiceServicer):
         return previsao_pb2.PrevisaoResponse(forecasts=forecasts)
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=15))
     previsao_pb2_grpc.add_PrevisaoServiceServicer_to_server(PrevisaoService(), server)
     server.add_insecure_port('[::]:50051')
     print("Servidor de previsão do tempo rodando na porta 50051...")

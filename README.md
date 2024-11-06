@@ -74,4 +74,3 @@ curl http://127.0.0.1:5000/previsao?cidade=São%20Paulo
 ### Acesso a interface gráfica 
 
 Para acessar a interface gráfica localmente, recomendamos a utilização da extensão "Live Server" dentro do Visual Studio Code ou navegue até o arquivo index.html e abra utilizando o navegador favorito. 
-Caso queira utilizar de forma mais dinamica, ative o servidor.py e a api.py. Após a ativação, acesse o site: https://forecasting-gamma.vercel.app/
